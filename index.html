@@ -81,49 +81,81 @@
 		<div class="container">
 			<div class="relative">
 				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
+				<img class="mogura uwagaki" src="">
 			</div>
 			<div class="relative">
 				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
+				<img class="mogura uwagaki" src="">
 			</div>
 			<div class="relative">
 				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-		</div>
-		<div class="container">
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
+				<img class="mogura uwagaki" src="">
 			</div>
 		</div>
 		<div class="container">
 			<div class="relative">
 				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
+				<img class="mogura uwagaki" src="">
 			</div>
 			<div class="relative">
 				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
+				<img class="mogura uwagaki" src="">
 			</div>
 			<div class="relative">
 				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
+				<img class="mogura uwagaki" src="">
+			</div>
+		</div>
+		<div class="container">
+			<div class="relative">
+				<img class="ana" src="images/穴.png">
+				<img class="mogura uwagaki" src="">
+			</div>
+			<div class="relative">
+				<img class="ana" src="images/穴.png">
+				<img class="mogura uwagaki" src="">
+			</div>
+			<div class="relative">
+				<img class="ana" src="images/穴.png">
+				<img class="mogura uwagaki" src="">
 			</div>
 		</div>
 	</div>
 
 	<script>
+		const mogura_normal_img = "images/モグ2.png";
+		const mogura_hit_img = "images/モグ1.png";
+		const no_mogura = ""
 		// ここにJavaScriptを書く
+		var moguras = document.getElementsByClassName("mogura");
+
+		for (let i = 0; i < moguras.length; ++i) {
+			console.log(moguras[i]);
+			moguras[i].onclick = () => {
+				moguras[i].src = mogura_hit_img;
+				moguras[i].classList.add('hit-mogura');
+				setTimeout(() => {
+					moguras[i].src = no_mogura;
+					moguras[i].classList.remove('hit-mogura');
+				}, 100)
+			}
+		}
+
+		function mogura_deru() {
+			let num = Math.floor(Math.random() * moguras.length);
+			if (moguras[num].src == mogura_normal_img) {
+				return; // 何もしない
+			}
+
+			moguras[num].src = mogura_normal_img
+			setTimeout(() => {
+				if (moguras[num].src == mogura_normal_img) {
+					moguras[num].src = mogura_hit_img;
+				}
+			}, 800)
+		}
+
+		setInterval(mogura_deru, 350)
 	</script>
 </body>
 
