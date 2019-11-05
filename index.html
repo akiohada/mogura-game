@@ -24,14 +24,16 @@
 			background-size: cover;
 		}
 		.counter {
-			font-family: 'M PLUS 1p', sans-serif;
 			height: 30px;
+			margin: 10px;
+		}
+		.counterText {
+			font-family: 'M PLUS 1p', sans-serif;
 			text-align: center;
 			font-size: x-large;
 			color: white;
-			margin: 10px;
 		}
-		.counter.zoomOut {
+		.counterText.zoomOut {
 			animation: zoomOut 0.8s;
 		}
 		@keyframes zoomOut {
@@ -42,20 +44,25 @@
 				transform: scale(1.0);
 			}
 		}
+		.counterText.alert {
+			color: red;
+			font-weight: bold;
+		}
 		#buttons {
 			display: flex;
-			justify-content: space-around;
+			justify-content: center;
 		}
 		.button {
 			font-family: 'M PLUS 1p', sans-serif;
 			background: white;
 			color: green;
 			font-size: xx-large;
-			font-weight: bold;
+			font-weight: 900;
 			border: none;
 			padding: 0.5rem 2rem;
 			box-shadow: 0 .3rem 0 #666;
 			border-radius: 4px;
+			margin: 5px;
 		}
 		.button:active {
 			box-shadow: none;
@@ -123,7 +130,7 @@
 
 	<div class="field">
 		<h1><img src="images/title.png" alt="モグラタタキ"></h1>
-		<div id="counter" class="counter"></div>
+		<div id="counter" class="counter"> </div>
 		<div id="buttons"></div>
 		<div id="moguraField"></div>
 	</div>
