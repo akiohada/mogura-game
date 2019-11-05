@@ -1,4 +1,12 @@
-/*######### Initializing Process #########*/
+/***************************************************************
+ * FileName: App.js
+ * Descripsion: ROLLS
+ * Copyright: akiohada
+ * Original Author: Akio Hada
+ * Date Created: 2019-08-01
+***************************************************************/
+
+/******************** Initializing Process ********************/
 const imgAna = "images/穴.png";
 const imgItaiMogura = "images/モグ1.png";
 const imgNormalMogura = "images/モグ2.png";
@@ -64,7 +72,7 @@ for (let i = 0 ; i < mogurasArr.length ; i++) {
     }
 }
 
-/*#########  Main Process  #########*/
+/******************** Main Process ********************/
 //カウントダウン
 function countDown () {
     const count = currentCount
@@ -117,8 +125,7 @@ function deruMogura(){
     }, 2000, mogura);
 }
 
-
-/*-- #########  Sub Mogura Process  ######### --*/
+/******************** Sub Mogura Process ********************/
 //モグラをリセット
 function resetMogura (img, status) {
     const moguras = document.getElementsByClassName("mogura");
@@ -156,7 +163,7 @@ function kakureruMogura(mogura){
     mogurasArr[x][y] = 0;
 }
 
-/*#########  Event Handler  #########*/
+/******************** Event Handler ********************/
 //ボタンが押された際の各処理
 function buttonClick(){
     const button = event.target;
@@ -196,7 +203,7 @@ function buttonClick(){
     }
 }
 
-/*#########  Reset/Close Process  #########*/
+/******************** Reset/Close Process ********************/
 //ゲーム再開示のリセット処理
 function resetGame(){
     currentCount = initialCount;
