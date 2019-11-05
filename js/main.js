@@ -1,9 +1,8 @@
 /***************************************************************
- * FileName: App.js
- * Descripsion: ROLLS
- * Copyright: akiohada
- * Original Author: Akio Hada
- * Date Created: 2019-08-01
+ * Descripsion: Learning Javascript Basics
+ * Copyright: Shinsuke Matsuda xHack
+ * Original Author: Shinsuke Matsuda xHack
+ * Date Created: 2019-11-02
 ***************************************************************/
 
 /******************** Initializing Process ********************/
