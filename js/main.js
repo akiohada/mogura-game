@@ -105,7 +105,6 @@ function countDown () {
 //モグラが定期的に出現する
 const moguras = document.getElementsByClassName("mogura");
 function deruMogura(){
-    console.log("deruMogura start");
     let mogura;
     let x;
     let y;
@@ -123,7 +122,6 @@ function deruMogura(){
     mogura.src = imgNormalMogura;
     mogurasArr[x][y] = 1;
     appearedMoguras++; 
-    console.log("mogura arise at " + x + " - " + y + " Number " + appearedMoguras);
     setTimeout((mogura) => {
         kakureruMogura(mogura);
     }, 2000, mogura);
