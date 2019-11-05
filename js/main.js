@@ -80,7 +80,7 @@ function countDown () {
         //resetMogura("", 0);
         currentCount = currentCount - 1;
         counter.classList.add("zoomOut");
-        counter.textContent = "残り" + currentCount + "秒";
+        counter.textContent = "START!!!\n残り" + currentCount + "秒";
     } else if (count == 1) {
         currentCount = currentCount - 1;
         //console.log("countdown " + currentCount);
@@ -216,7 +216,7 @@ function resetGame(){
 
 //ゲーム終了時の処理
 function closeGame(){
-    counter.textContent = "あなたのスコアは" + score + "/" + appearedMoguras + "出てきました";
+    counter.textContent = "あなたのスコアは" + score + "/" + appearedMoguras;
     if (score == appearedMoguras) {
         message.textContent = "PERFECT!!";
         counter.appendChild(message);
