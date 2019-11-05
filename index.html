@@ -4,21 +4,17 @@
 <head>
 	<meta charset="utf-8">
 	<title>もぐらたたきゲーム</title>
-	<style media="screen">
-		#game {
-			cursor: url(./images/hummer.cur) 40 40, auto;
-		}
+	<link href="https://fonts.googleapis.com/css?family=M+PLUS+1p&amp;subset=japanese" rel="stylesheet">
 
+	<style media="screen">
 		h1 {
 			text-align: center;
 			margin: auto 0px;
 			background: rgba(140, 248, 155, 0.7);
 		}
-
 		h1>img {
 			width: 320px;
 		}
-
 		body {
 			margin: 0px auto;
 			background-image: url(./images/草-noitem.png);
@@ -27,7 +23,44 @@
 			background-position: center;
 			background-size: cover;
 		}
-
+		.counter {
+			font-family: 'M PLUS 1p', sans-serif;
+			height: 50px;
+			text-align: center;
+			font-size: x-large;
+			color: white;
+			margin: 20px;
+		}
+		.counter.zoomOut {
+			animation: zoomOut 0.8s;
+		}
+		@keyframes zoomOut {
+			0% {
+				transform: scale(8.0);
+			}
+			100% {
+				transform: scale(1.0);
+			}
+		}
+		#buttons {
+			display: flex;
+			justify-content: space-around;
+		}
+		.button {
+			font-family: 'M PLUS 1p', sans-serif;
+			background: white;
+			color: green;
+			font-size: xx-large;
+			font-weight: bold;
+			border: none;
+			padding: 0.5rem 2rem;
+			box-shadow: 0 .3rem 0 #666;
+			border-radius: 4px;
+		}
+		.button:active {
+			box-shadow: none;
+			transform: translateY(.3rem);
+		}
 		.container {
 			width: 520px;
 			height: 160px;
@@ -39,92 +72,62 @@
 			display: -o-flex;
 			display: flex;
 		}
-
 		.container img {
 			margin: 20px;
 			width: 140px;
 		}
-
+		.hole {
+			cursor: url(./images/hummer.cur) 30 30, auto;
+		}
 		.wrapper {
 			margin: 0px auto;
 			display: flex;
 		}
-
 		img {
 			width: 213px;
 		}
-
 		.hit-mogura {
 			cursor: url(./images/hummer2.cur) 20 20, auto;
 		}
-
 		.uwagaki {
 			position: absolute;
 			top: 0;
 			left: 0;
 		}
-
 		.relative {
 			position: relative;
 		}
-
 		.field {
 			margin: 40px;
+		}
+		.effect-fade {
+			animation-name: fadein;
+			animation-duration: 0.3s;
+		}
+		@keyframes fadein {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
 	</style>
 
 </head>
 
 <body id="game">
-	<div class="field">
-		<h1><img src="images/title.png" alt=""></h1>
-		<div class="container">
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-		</div>
-		<div class="container">
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-		</div>
-		<div class="container">
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-			<div class="relative">
-				<img class="ana" src="images/穴.png">
-				<img class="mogura uwagaki" src="images/モグ2.png">
-			</div>
-		</div>
-	</div>
 
-	<script>
-		// ここにJavaScriptを書く
-	</script>
+	<div class="field">
+		<h1><img src="images/title.png" alt="モグラタタキ"></h1>
+		<div id="counter" class="counter"></div>
+		<div id="buttons"></div>
+		<div id="moguraField"></div>
+	</div>
+	<script src="js/main.js"></script>
+
 </body>
 
 </html>
