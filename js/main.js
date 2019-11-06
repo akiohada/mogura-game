@@ -94,9 +94,7 @@ function countDown() {
     //終了
     } else if (currentCount === 1) {
         currentCount = currentCount - 1;
-        // counter.removeChild(counterText);
-        counterText.classList.add("zoomOut");
-        counterText.textContent = "TIME UP!";
+        counterText.textContent = "TIME UP!"; //ここだけアニメーションが効くのはなぜ・・？
         counter.appendChild(counterText);
         clearInterval(intervalCountDown);
         clearInterval(intervalDeruMogura);
@@ -121,14 +119,16 @@ function deruMogura() {
         if (mogurasArr[x][y] === 0) {
             break;
         }
+        //998回ったらおそらくモグラがいっぱいの状況なので関数を終了する
+        if (i === 998) {
+            return;
+        }
     }
     mogura.classList.add("effect-fade");
     mogura.src = imgNormalMogura;
     mogurasArr[x][y] = 1;
     appearedMoguras++; 
-    setTimeout((mogura) => {
-        kakureruMogura(mogura);
-    }, kakureruTime, mogura);
+    setTimeout((mogura) => { kakureruMogura(mogura); }, kakureruTime, mogura);
 }
 
 /******************** Sub Mogura Process ********************/
@@ -151,8 +151,8 @@ function hitMogura() {
     mogura.classList.remove("effect-fade");
     mogura.src = imgItaiMogura;
     score++;
-    clearInterval(intervalKakureruMogura); //これを入れないと、通常の"2秒後隠れる処理"が残って重複しまう
-    intervalKakureruMogura = setTimeout(kakureruMogura, 300, mogura);
+    clearInterval(intervalKakureruMogura); //これを入れないと、通常の"2秒後隠れる処理"が残って下記の隠れる処理と重複しまう
+    intervalKakureruMogura = setTimeout(kakureruMogura, 200, mogura);
 }
 
 //モグラが隠れる
