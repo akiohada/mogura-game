@@ -18,12 +18,12 @@
 		body {
 			margin: 0px auto;
 			background-image: url(./images/草-noitem.png);
-			background-repeat: no-repeat;
-			background-attachment: fixed;
-			background-position: center;
-			background-size: cover;
+			background-repeat: repeat;
+			/* background-attachment: fixed; */
+			/* background-position: top; */
+			/* background-size: cover; */
 		}
-		.counter {
+		#counter {
 			height: 30px;
 			margin: 10px;
 		}
@@ -34,7 +34,8 @@
 			color: white;
 		}
 		.counterText.zoomOut {
-			animation: zoomOut 0.8s;
+			animation-name: zoomOut;
+			animation-duration: 0.7s;
 		}
 		@keyframes zoomOut {
 			0% {
@@ -130,7 +131,7 @@
 
 	<div class="field">
 		<h1><img src="images/title.png" alt="モグラタタキ"></h1>
-		<div id="counter" class="counter"> </div>
+		<div id="counter"></div>
 		<div id="buttons"></div>
 		<div id="moguraField"></div>
 	</div>

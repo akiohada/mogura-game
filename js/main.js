@@ -9,6 +9,7 @@
 const imgAna = "images/穴.png";
 const imgItaiMogura = "images/モグ1.png";
 const imgNormalMogura = "images/モグ2.png";
+const kakureruTime = 2000;
 const initialCount = 10;
 let currentCount = initialCount;
 let level = 1;
@@ -19,6 +20,7 @@ let mogurasArr = [
     [0, 0, 0],
     [0, 0, 0]
 ];
+//ここでinterval系を宣言しておかないとクリア処理できない・・?
 let intervalCountDown;
 let intervalDeruMogura;
 let intervalKakureruMogura;
@@ -29,8 +31,9 @@ const counterText = document.createElement("div");
 counterText.textContent = currentCount + "秒間もぐらをたたけ！ Level: " + level;
 counterText.classList.add("counterText");
 counter.appendChild(counterText);
-
-//メッセージ要素を生成
+const counterClearText = document.createElement("div");
+counterClearText.textContent = "";
+counterClearText.classList.add("counterText");
 
 //ボタン要素を生成
 const buttons = document.getElementById("buttons");
@@ -47,74 +50,75 @@ goNextLevelButton.onclick = buttonClick;
 //container要素を生成
 const moguraField = document.getElementById("moguraField");
 for (let i = 0 ; i < mogurasArr.length ; i++) {
-    const div = document.createElement("div");
-    moguraField.appendChild(div);
-    moguraField.lastElementChild.classList.add("container");
+    const row = document.createElement("div");
+    row.classList.add("container");
+    moguraField.appendChild(row);
     //hole要素を生成
     for (let j = 0 ; j < mogurasArr[i].length ; j++) {
-        const div = document.createElement("div");
-        moguraField.lastElementChild.appendChild(div);
-        const hole = moguraField.lastElementChild.lastElementChild;
+        let hole = document.createElement("div");
         hole.classList.add("relative", "hole");
+        moguraField.lastElementChild.appendChild(hole);
+        hole = moguraField.lastElementChild.lastElementChild;
         //holeの子要素としてana画像要素を作成、クラスを付与、初期画像を設定
         const imgHole = document.createElement("img");
+        imgHole.classList.add("ana");
+        imgHole.src = imgAna;
         hole.appendChild(imgHole);
-        hole.lastElementChild.classList.add("ana");
-        hole.lastElementChild.src = imgAna;
-        //holeの子要素としてana画像要素を作成、クラスを付与、初期画像を設定、mogurasArr連携用xy属性を設定、クリックイベントを設定
+        //holeの子要素としてmogura画像要素を作成、クラスを付与、初期画像を設定、mogurasArr連携用xy属性を設定、クリックイベントを設定
         const imgMogura = document.createElement("img");
+        imgMogura.classList.add("mogura", "uwagaki");
+        imgMogura.src = imgNormalMogura;
+        imgMogura.setAttribute("x",i);
+        imgMogura.setAttribute("y",j);
+        imgMogura.onclick = hitMogura;
         hole.appendChild(imgMogura);
-        const mogura = hole.lastElementChild;
-        mogura.classList.add("mogura", "uwagaki");
-        mogura.src = imgNormalMogura;
-        mogura.setAttribute("x",i);
-        mogura.setAttribute("y",j);
-        mogura.onclick = hitMogura;
     }
 }
 
 /******************** Main Process ********************/
 //カウントダウン
-function countDown () {
-    const count = currentCount
-    if (count == initialCount + 1) {
+function countDown() {
+    //スタート押して1秒タイムラグを作る
+    if (currentCount === initialCount + 1) {
         currentCount = currentCount - 1;
         counterText.classList.add("zoomOut");
         counterText.textContent = "START!!!";
-    } else if (count == 1) {
+    //通常のカウントダウン処理
+    } else if (currentCount > 4) {
         currentCount = currentCount - 1;
-        counter.removeChild(counterText);
+        counterText.textContent = "残り" + currentCount + "秒";
+    } else if (currentCount > 1) {
+        currentCount = currentCount - 1;
+        counterText.classList.add("alert");
+        counterText.textContent = "残り" + currentCount + "秒";
+    //終了
+    } else if (currentCount === 1) {
+        currentCount = currentCount - 1;
+        // counter.removeChild(counterText);
         counterText.classList.add("zoomOut");
         counterText.textContent = "TIME UP!";
         counter.appendChild(counterText);
         clearInterval(intervalCountDown);
         clearInterval(intervalDeruMogura);
         clearInterval(intervalKakureruMogura);
-        setTimeout(resetMogura, 2100, imgItaiMogura, 1);
-        setTimeout(closeGame, 2500);
-    } else if (count > 4) {
-        currentCount = currentCount - 1;
-        counterText.textContent = "残り" + currentCount + "秒";
-    } else if (count > 1) {
-        currentCount = currentCount - 1;
-        counterText.classList.add("alert");
-        counterText.textContent = "残り" + currentCount + "秒";
+        setTimeout(resetMogura, kakureruTime + 100, imgItaiMogura, 1);
+        setTimeout(closeGame, kakureruTime + 100);
     }
 }
 
 //モグラが定期的に出現する
 const moguras = document.getElementsByClassName("mogura");
-function deruMogura(){
+function deruMogura() {
     let mogura;
     let x;
     let y;
     //すでに出ているところには出現しない
-    for (let i = 0;i < 99999; i++ ) {
+    for (let i = 0;i < 999; i++) {
         const rand = Math.floor(Math.random() * moguras.length);
         mogura = moguras[rand];
         x = mogura.getAttribute("x");
         y = mogura.getAttribute("y");
-        if (mogurasArr[x][y] == 0) {
+        if (mogurasArr[x][y] === 0) {
             break;
         }
     }
@@ -124,26 +128,25 @@ function deruMogura(){
     appearedMoguras++; 
     setTimeout((mogura) => {
         kakureruMogura(mogura);
-    }, 2000, mogura);
+    }, kakureruTime, mogura);
 }
 
 /******************** Sub Mogura Process ********************/
 //モグラをリセット
-function resetMogura (img, status) {
+function resetMogura(img, status) {
     const moguras = document.getElementsByClassName("mogura");
     let mogurasNum = 0;
     for (i = 0;i < mogurasArr.length;i++){ 
         for (j = 0;j < mogurasArr[i].length;j++){
             mogurasArr[i][j] = status;
             moguras[mogurasNum].src = img;
-            moguras[mogurasNum].classList.remove("effect-fade");
             mogurasNum++;
         }
     }
 }
     
 //モグラが叩かれたら
-function hitMogura(){
+function hitMogura() {
     const mogura = event.target;
     mogura.classList.remove("effect-fade");
     mogura.src = imgItaiMogura;
@@ -153,7 +156,7 @@ function hitMogura(){
 }
 
 //モグラが隠れる
-function kakureruMogura(mogura){
+function kakureruMogura(mogura) {
     mogura.classList.remove("effect-fade");
     mogura.src = "";
     const x = mogura.getAttribute("x");
@@ -163,30 +166,26 @@ function kakureruMogura(mogura){
 
 /******************** Event Handler ********************/
 //ボタンが押された際の各処理
-function buttonClick(){
+function buttonClick() {
     const button = event.target;
-    if (button.innerHTML == "STOP") {
+    if (button.innerHTML === "START") {
+        currentCount++;
+        resetMogura("", 0);
+        setTimeout(() => { intervalCountDown = setInterval(countDown, 1000); }, 100); //テストプレイして調整する
+        setTimeout(() => { intervalDeruMogura = setInterval(deruMogura, 1900 / level + 100 ); }, 900); //テストプレイして調整する
+        startButton.innerHTML = 'STOP';
+    } else if (button.innerHTML === "STOP") {
         clearInterval(intervalCountDown);
         clearInterval(intervalDeruMogura);
         startButton.innerHTML = "RESET";
-    } else if (button.innerHTML == "RESET") {
+    } else if (button.innerHTML === "RESET") {
         level = 1;
         setTimeout(resetGame, 2100);
         startButton.innerHTML = "wait a moment ...";
-        if(button.parentNode.lastElementChild.innerHTML == "Go to next Level"){
+        if(button.parentNode.lastElementChild.innerHTML === "Go to next Level"){
             button.parentNode.removeChild(button.parentNode.lastElementChild);
         }
-    } else if (button.innerHTML == "START") {
-        resetMogura("",0);
-        currentCount++;
-        setTimeout(() => {
-            intervalCountDown = setInterval(countDown, 1000);
-        }, 100);
-        setTimeout(() => {
-            intervalDeruMogura = setInterval(deruMogura, 1900 / level + 100 );
-        }, 900);
-        startButton.innerHTML = 'STOP';
-    } else if (button.innerHTML == "Go to next Level") {
+    } else if (button.innerHTML === "Go to next Level") {
         setTimeout(resetGame, 2100);
         startButton.innerHTML = "wait a moment ...";
         button.parentNode.removeChild(button);
@@ -195,7 +194,7 @@ function buttonClick(){
 
 /******************** Reset/Close Process ********************/
 //ゲーム再開示のリセット処理
-function resetGame(){
+function resetGame() {
     currentCount = initialCount;
     counterText.textContent = currentCount + "秒間もぐらをたたけ！ Level: " + level;
     counterText.classList.remove("zoomOut", "alert");
@@ -206,10 +205,10 @@ function resetGame(){
 }
 
 //ゲーム終了時の処理
-function closeGame(){
+function closeGame() {
     counterText.classList.remove("zoomOut", "alert");
     counterText.textContent = "あなたのスコアは" + score + "/" + appearedMoguras;
-    if (score == appearedMoguras) {
+    if (score === appearedMoguras) {
         counterText.textContent += " PERFECT!!";
     }
     startButton.innerHTML = "RESET";
