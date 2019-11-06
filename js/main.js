@@ -31,9 +31,6 @@ const counterText = document.createElement("div");
 counterText.textContent = currentCount + "秒間もぐらをたたけ！ Level: " + level;
 counterText.classList.add("counterText");
 counter.appendChild(counterText);
-const counterClearText = document.createElement("div");
-counterClearText.textContent = "";
-counterClearText.classList.add("counterText");
 
 //ボタン要素を生成
 const buttons = document.getElementById("buttons");
@@ -169,7 +166,7 @@ function kakureruMogura(mogura) {
 function buttonClick() {
     const button = event.target;
     if (button.innerHTML === "START") {
-        currentCount++;
+        currentCount++; //countDown開始時の処理用
         resetMogura("", 0);
         setTimeout(() => { intervalCountDown = setInterval(countDown, 1000); }, 100); //テストプレイして調整する
         setTimeout(() => { intervalDeruMogura = setInterval(deruMogura, 1900 / level + 100 ); }, 900); //テストプレイして調整する
@@ -182,7 +179,7 @@ function buttonClick() {
         level = 1;
         setTimeout(resetGame, 2100);
         startButton.innerHTML = "wait a moment ...";
-        if(button.parentNode.lastElementChild.innerHTML === "Go to next Level"){
+        if(button.parentNode.lastElementChild.innerHTML === "Go to next Level"){ //冗長な感じ、要改善
             button.parentNode.removeChild(button.parentNode.lastElementChild);
         }
     } else if (button.innerHTML === "Go to next Level") {
