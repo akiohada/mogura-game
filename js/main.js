@@ -124,6 +124,7 @@ function deruMogura() {
     mogura.classList.add("effect-fade");
     mogura.src = imgNormalMogura;
     mogurasArr[x][y] = 1;
+    console.log("deta " + x + ", " + y);
     appearedMoguras++; 
     setTimeout((mogura) => { kakureruMogura(mogura); }, kakureruTime, mogura);
 }
@@ -147,6 +148,7 @@ function hitMogura() {
     const mogura = event.target;
     mogura.classList.remove("effect-fade");
     mogura.src = imgItaiMogura;
+    console.log("tataita " + mogura.getAttribute("x") + ", " + mogura.getAttribute("y"));
     score++;
     clearInterval(intervalKakureruMogura); //これを入れないと、通常の"2秒後隠れる処理"が残って下記の隠れる処理と重複しまう
     intervalKakureruMogura = setTimeout(kakureruMogura, 200, mogura);
