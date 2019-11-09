@@ -95,7 +95,7 @@ function countDown() {
         counter.appendChild(counterText);
         clearInterval(intervalCountDown);
         clearInterval(intervalDeruMogura);
-        clearInterval(intervalKakureruMogura);
+        clearTimeout(intervalKakureruMogura);
         setTimeout(resetMogura, kakureruTime + 100, imgItaiMogura, 1);
         setTimeout(closeGame, kakureruTime + 100);
     }
@@ -150,7 +150,7 @@ function hitMogura() {
     mogura.src = imgItaiMogura;
     console.log("tataita " + mogura.getAttribute("x") + ", " + mogura.getAttribute("y"));
     score++;
-    clearInterval(intervalKakureruMogura); //これを入れないと、通常の"2秒後隠れる処理"が残って下記の隠れる処理と重複しまう
+    clearTimeout(intervalKakureruMogura); //これを入れないと、通常の"2秒後隠れる処理"が残って下記の隠れる処理と重複しまう
     intervalKakureruMogura = setTimeout(kakureruMogura, 200, mogura);
 }
 
