@@ -1,0 +1,116 @@
+h1 {
+    text-align: center;
+    margin: auto 0px;
+    background: rgba(140, 248, 155, 0.7);
+}
+h1>img {
+    width: 320px;
+}
+body {
+    margin: 0px auto;
+    background-image: url(../images/草-noitem.png);
+    background-repeat: repeat;
+    /* background-attachment: fixed; */
+    /* background-position: top; */
+    /* background-size: cover; */
+}
+#counter {
+    height: 30px;
+    margin: 10px;
+}
+.counterText {
+    font-family: 'M PLUS 1p', sans-serif;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+}
+.counterText.zoomOut {
+    animation-name: zoomOut;
+    animation-duration: 0.7s;
+}
+@keyframes zoomOut {
+    0% {
+        transform: scale(8.0);
+    }
+    100% {
+        transform: scale(1.0);
+    }
+}
+.counterText.alert {
+    color: red;
+    font-weight: bold;
+}
+#buttons {
+    display: flex;
+    justify-content: center;
+}
+.button {
+    font-family: 'M PLUS 1p', sans-serif;
+    background: white;
+    color: green;
+    font-size: xx-large;
+    font-weight: 900;
+    border: none;
+    padding: 0.5rem 2rem;
+    box-shadow: 0 .3rem 0 #666;
+    border-radius: 4px;
+    margin: 5px;
+}
+.button:active {
+    box-shadow: none;
+    transform: translateY(.3rem);
+}
+.container {
+    width: 520px;
+    height: 160px;
+    margin: 20px auto;
+    text-align: center;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: center;
+}
+.container img {
+    margin: 10px;
+    width: 140px;
+}
+.hole {
+    cursor: url(../images/hummer.cur) 30 30, auto;
+}
+.wrapper {
+    margin: 0px auto;
+    display: flex;
+}
+img {
+    width: 213px;
+}
+.hit-mogura {
+    cursor: url(../images/hummer2.cur) 20 20, auto;
+}
+.uwagaki {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.relative {
+    position: relative;
+}
+.field {
+    margin: 0px;
+}
+.effect-fade {
+    animation-name: fadein;
+    animation-duration: 0.3s;
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
